@@ -124,7 +124,9 @@ See documentation for setup linked below.
 ---
 ### Segmentation of alternative imaging modalities
 
-Coming soon!
+OmniSegger supports analysis and segmentation of fluorescence and brightfield cell images. The fluorescence model is included with Omnipose, while the [brightfield model is available on Zenodo](https://zenodo.org/records/14225612).
+To analyze fluorescence data, the fluorescence images should be labeled as channel 1 in the filenames. Then when running Omnipose, replace the argument for the pretrained model from ``bact_phase_omni`` to ``bact_fluor_omni``.
+To analyze brightfield data, download the brightfield model and set the brightfield images as channel 1 in the filenames. Then when running Omnipose, replace the argument for the pretrained model from ``bact_phase_omni`` to the path of the locally downloaded brightfield model (ex., ``/home/tlo/Documents/omnipose_BF_model6_2023_09_21_14_57_02.689653``). 
 
 
 ---
