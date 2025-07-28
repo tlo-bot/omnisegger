@@ -4,7 +4,7 @@
 ![Phase image, old SuperSegger segmentation, new OmniSegger segmentation.](/assets/githubfig2.png)
 
 
-OmniSegger is the Supersegger MATLAB-based suite modified to work with improved Omnipose segmentation. Omnipose should be installed before running OmniSegger.
+OmniSegger is the Supersegger MATLAB-based suite modified to work with improved Omnipose segmentation. Omnipose should be installed before running OmniSegger. Read more about the capbilities of OmniSegger in our paper: [Lo TW, Cutler KJ, James Choi H, Wiggins PA (2025) OmniSegger: A time-lapse image analysis pipeline for bacterial cells. PLOS Computational Biology 21(5): e1013088](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1013088).
 
 More information about Omnipose can be found at the [Omnipose Github](https://github.com/kevinjohncutler/omnipose/) and [documentation page](https://omnipose.readthedocs.io/).
 
@@ -20,6 +20,7 @@ More information about Omnipose can be found at the [Omnipose Github](https://gi
 - [Running Omnipose directly from MATLAB](#running-omnipose-directly-from-matlab)
 - [Segmentation of alternative imaging modalities](#segmentation-of-alternative-imaging-modalities)
 - [Troubleshooting \& Known Issues](#troubleshooting--known-issues)
+- [Citation](#citation)
 
 ---
 ### Software Requirements
@@ -139,7 +140,15 @@ To analyze brightfield data, download the brightfield model and set the brightfi
 - [Running Omnipose directly from MATLAB for Linux (verified) & MacOS](../main/docs/omni_in_matlab_unix.md)
 
 
+---
+### Citation
 
+If you use OmniSegger, please cite our [paper](https://doi.org/10.1371/journal.pcbi.1013088):
+Lo TW, Cutler KJ, James Choi H, Wiggins PA (2025) OmniSegger: A time-lapse image analysis pipeline for bacterial cells. PLOS Computational Biology 21(5): e1013088.
+
+Additionally, a brightfield model for Omnipose is available at Zenodo: [https://doi.org/10.5281/zenodo.14225611](https://doi.org/10.5281/zenodo.14225611) under the CC-BY-NC 4.0 license.
+
+The brightfield images and ground truth masks used to train the brightfield Omnipose model are available on Zenodo at [https://doi.org/10.5281/zenodo.14225852](https://doi.org/10.5281/zenodo.14225852) under the CC-BY-NC 4.0 license. 
 
 
 
