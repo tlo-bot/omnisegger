@@ -76,12 +76,28 @@ end
     
     if exist([extractBefore(dataname,[filesep 'seg' filesep]) filesep 'masks' filesep],'dir')
         maskdir = [extractBefore(dataname, [filesep 'seg' filesep]) filesep 'masks' filesep];
+        % Check for png or tif/tiff files in maskdir
+        pngFiles = ~isempty(dir(fullfile(maskdir, '*.png')));
+        tifFiles = ~isempty(dir(fullfile(maskdir, '*.tif')))
+        tiffFiles = ~isempty(dir(fullfile(maskdir, '*.tiff')));
+        if ~pngFiles && ~tifFiles && ~tiffFiles
+            % If no valid mask files found, warn the user
+            warning(['No PNG, TIF, or TIFF files found in maskdir: ' maskdir]);
+        end
     else
 
     end
     filename = char(extractBetween(dataname,[filesep 'seg' filesep],'_seg.mat')); %generalized to filesep 
-    maskpath = strcat(maskdir,filename,'c1_cp_masks.png'); %get path of cellpose mask  
-    data = intMakeRegs( maskpath, data, CONST ); %input cellpose mask 
+    if pngFiles
+        maskpath = strcat(maskdir,filename,'c1_cp_masks.png'); %get path of omnipose mask  
+    elseif tifFiles
+        maskpath = strcat(maskdir,filename,'c1_cp_masks.tif'); 
+    elseif
+        maskpath = strcat(maskdir,filename,'c1_cp_masks.tiff'); 
+    else
+        error('No valid mask files found in the specified directory.');
+    end
+    data = intMakeRegs( maskpath, data, CONST ); %input omnipose mask, imread mask and convert to double 
     err_flag = false; %shh no errors here...
 
 end

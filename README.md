@@ -4,7 +4,7 @@
 ![Phase image, old SuperSegger segmentation, new OmniSegger segmentation.](/assets/githubfig2.png)
 
 
-OmniSegger is the Supersegger MATLAB-based suite modified to work with improved Omnipose segmentation. Omnipose should be installed before running OmniSegger. Read more about the capbilities of OmniSegger in our paper: [Lo TW, Cutler KJ, James Choi H, Wiggins PA (2025) OmniSegger: A time-lapse image analysis pipeline for bacterial cells. PLOS Computational Biology 21(5): e1013088](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1013088).
+OmniSegger is the Supersegger MATLAB-based suite modified to work with improved Omnipose segmentation. Omnipose should be installed before running OmniSegger. Read more about the capabilities of OmniSegger in our paper: [Lo TW, Cutler KJ, James Choi H, Wiggins PA (2025) OmniSegger: A time-lapse image analysis pipeline for bacterial cells. PLOS Computational Biology 21(5): e1013088](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1013088).
 
 More information about Omnipose can be found at the [Omnipose Github](https://github.com/kevinjohncutler/omnipose/) and [documentation page](https://omnipose.readthedocs.io/).
 
