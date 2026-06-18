@@ -179,7 +179,7 @@ else
         if (contents(i).isdir) && (numel(contents(i).name) > 2)
             num_xy = num_xy+1;
             nxy = [nxy, str2num(contents(i).name(3:end))];
-            dirname_list{i} = [dirname_,contents(i).name,filesep];
+            dirname_list{num_xy} = [dirname_,contents(i).name,filesep];
         end
     end
     
@@ -197,14 +197,12 @@ else
     end
     
     
-    % Set up parallel loop for each xy point if more than one xy position
-    % exists. If not more than one xy, we will parallelize inner loops
-    if (num_xy>1) && (CONST.parallel.parallel_pool_num>0)
-        workers = CONST.parallel.parallel_pool_num;
-        CONST.parallel.parallel_pool_num = 0;
-    else
-        workers=0;
-    end
+    % Always parallelise at the xy level. Inner parfor (over frames) is
+    % forced to serial (0 workers) to avoid unsupported nested parallel
+    % pools. xy positions are fully independent: each reads/writes only
+    % its own xy*/ subdirectory and holds no shared state.
+    workers = CONST.parallel.parallel_pool_num;
+    CONST.parallel.parallel_pool_num = 0;
     
     if workers || ~CONST.parallel.show_status
         h = [];
@@ -213,12 +211,12 @@ else
         cleanup = onCleanup( @()( delete( h ) ) );
     end
     
-%     parfor(j = 1:num_xy,workers)
-    for j = 1:num_xy
+    parfor(j = 1:num_xy,workers)
+    %for j = 1:num_xy
         
         dirname_xy = dirname_list{j};
         intProcessXY( dirname_xy, skip, nc, num_c, clean_flag, ...
-            CONST, startEnd, crop_box_array{j}, autoomni)
+            CONST, startEnd, crop_box_array{j}, autoomni, num_xy)
         
         if workers || ~CONST.parallel.show_status
             disp( ['BatchSuperSeggerOpti: No status bar. xy ',num2str(j), ...
@@ -248,7 +246,7 @@ end
 end
 
 function intProcessXY( dirname_xy, skip, nc, num_c, clean_flag, ...
-    CONST, startEnd, crop_box, autoomni)
+    CONST, startEnd, crop_box, autoomni, num_xy)
 % intProcessXY : the details of running the code in parallel.
 % Essentially for parallel processing to work, you have to hand each
 % processor all the information it needs to process the images.
@@ -396,8 +394,8 @@ disp('Continuing segmentation.');
 % does the segmentations for all the frames in parallel
 % Edit: not sure why this was at 2... 3 is segmentation 
 if startEnd(1) <= 3 && startEnd(2) >=3 && ~exist( stamp_name, 'file' )
-%     parfor(i=1:num_t,workers) % through all frames
-    for i = 1:num_t
+    parfor(i=1:num_t,floor(workers / num_xy)) % through all frames
+%    for i = 1:num_t
         
         if isempty( crop_box )
             crop_box_tmp = [];
